@@ -23,8 +23,6 @@ from Agent import Agent
 class MyAI(Agent):
 
 
-
-
     def __init__(self):
 
         # agent info
@@ -67,8 +65,8 @@ class MyAI(Agent):
         self.prev_len = 0
 
 
-
-
+        
+        
     # main step function
     def getAction(self, stench, breeze, glitter, bump, scream):
 
@@ -86,7 +84,9 @@ class MyAI(Agent):
                 self.y += 1
         self.safesquares.add((self.x, self.y))
         self.traversed.add((self.x, self.y))
+        
         adjsquares = [(self.x - 1, self.y), (self.x + 1, self.y), (self.x, self.y - 1), (self.x, self.y + 1)]
+        
         if not stench and not breeze:
             self.update_safesquares()
         if self.wumpus_dead and not breeze:
@@ -136,15 +136,13 @@ class MyAI(Agent):
             return Agent.Action.GRAB
 
 
-
-        # if has a target
+        # if there is a target
         if self.target_square != None:
             # print("target square: " + str(self.target_square))
             if self.x == self.target_square[0] and self.y == self.target_square[1]:
                 self.target_square = None
             else:
                 return self.go_to(self.target_square)
-
 
 
         # ready to shoot wumpus
@@ -219,22 +217,10 @@ class MyAI(Agent):
 
             if self.wumpus_pos_known and self.has_arrow:
                 return self.kill_wumpus()
-
-            # elif len(self.possible_wumpus_pos) == 2:
-            #     self.last_action = "SHOOT"
-            #     return Agent.Action.SHOOT
-
             elif self.x == 1 and self.y == 1 and self.has_arrow and not breeze:
                 self.last_action = "SHOOT"
                 self.has_arrow = False
                 return Agent.Action.SHOOT
-
-            # elif len(self.safesquares) == len(self.traversed) and len(self.traversed) < 8:
-            #     self.shot_loc = (self.x, self.y)
-            #     self.last_action = "SHOOT"
-            #     self.has_arrow = False
-            #     return Agent.Action.SHOOT
-
             else:
                 if len(self.safesquares) > len(self.traversed):
                     self.target_square = self.find_closest_safesquare()
@@ -271,7 +257,7 @@ class MyAI(Agent):
             else:
                 self.escape_mode = True
 
-
+                
 
         # if it is time to run
         if self.escape_mode:
@@ -306,28 +292,15 @@ class MyAI(Agent):
 
         # default move forward
         if self.direction == "left":
-            # if (self.x - 1, self.y) in self.traversed:
-            #     self.target_square = self.find_closest_safesquare()
-            #     return self.go_to(self.target_square)
             self.x += -1
         elif self.direction == "up":
-            # if (self.x, self.y + 1) in self.traversed:
-            #     self.target_square = self.find_closest_safesquare()
-            #     return self.go_to(self.target_square)
             self.y += 1
         elif self.direction == "right":
-            # if (self.x + 1, self.y) in self.traversed:
-            #     self.target_square = self.find_closest_safesquare()
-            #     return self.go_to(self.target_square)
             self.x += 1
         elif self.direction == "down":
-            # if (self.x, self.y - 1) in self.traversed:
-            #     self.target_square = self.find_closest_safesquare()
-            #     return self.go_to(self.target_square)
             self.y += -1
         self.last_action = "FORWARD"
         return Agent.Action.FORWARD
-
 
 
 
