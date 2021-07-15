@@ -1,7 +1,7 @@
 # ======================================================================
 # FILE:        MyAI.py
 #
-# AUTHOR:      Abdullah Younis
+# AUTHOR:      Alex Wang
 #
 # DESCRIPTION: This file contains your agent class, which you will
 #              implement. You are responsible for implementing the
